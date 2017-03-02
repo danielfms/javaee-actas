@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditActasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditActasLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{actasController.selected.id}" title="#{bundle.EditActasTitle_id}" required="true" requiredMessage="#{bundle.EditActasRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditActasLabel_fecha}" for="fecha" />
+                    <h:inputText id="fecha" value="#{actasController.selected.fecha}" title="#{bundle.EditActasTitle_fecha}" required="true" requiredMessage="#{bundle.EditActasRequiredMessage_fecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditActasLabel_lugar}" for="lugar" />
+                    <h:inputText id="lugar" value="#{actasController.selected.lugar}" title="#{bundle.EditActasTitle_lugar}" required="true" requiredMessage="#{bundle.EditActasRequiredMessage_lugar}"/>
+                    <h:outputLabel value="#{bundle.EditActasLabel_descripcion}" for="descripcion" />
+                    <h:inputTextarea rows="4" cols="30" id="descripcion" value="#{actasController.selected.descripcion}" title="#{bundle.EditActasTitle_descripcion}" required="true" requiredMessage="#{bundle.EditActasRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.EditActasLabel_proximaReunion}" for="proximaReunion" />
+                    <h:inputText id="proximaReunion" value="#{actasController.selected.proximaReunion}" title="#{bundle.EditActasTitle_proximaReunion}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditActasLabel_proyectoId}" for="proyectoId" />
+                    <h:selectOneMenu id="proyectoId" value="#{actasController.selected.proyectoId}" title="#{bundle.EditActasTitle_proyectoId}" required="true" requiredMessage="#{bundle.EditActasRequiredMessage_proyectoId}">
+                        <f:selectItems value="#{proyectosController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{actasController.update}" value="#{bundle.EditActasSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditActasViewLink}"/>
+                <br />
+                <h:commandLink action="#{actasController.prepareList}" value="#{bundle.EditActasShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditActasIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateCompromisosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <!--
+                    <h:outputLabel value="#{bundle.CreateCompromisosLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{compromisosController.selected.id}" title="#{bundle.CreateCompromisosTitle_id}" required="true" requiredMessage="#{bundle.CreateCompromisosRequiredMessage_id}"/>
+                    -->
+                    <h:outputLabel value="#{bundle.CreateCompromisosLabel_actividad}" for="actividad" />
+                    <h:inputTextarea rows="4" cols="30" id="actividad" value="#{compromisosController.selected.actividad}" title="#{bundle.CreateCompromisosTitle_actividad}" required="true" requiredMessage="#{bundle.CreateCompromisosRequiredMessage_actividad}"/>
+                    <!--
+                    <h:outputLabel value="#{bundle.CreateCompromisosLabel_fechaEntrega}" for="fechaEntrega" />
+                    <h:inputText id="fechaEntrega" value="#{compromisosController.selected.fechaEntrega}" title="#{bundle.CreateCompromisosTitle_fechaEntrega}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    -->
+                    <p:outputLabel value="#{bundle.CreateCompromisosLabel_fechaEntrega}" for="fechaEntrega"  />
+                    <p:calendar id="fechaEntrega" value="#{compromisosController.selected.fechaEntrega}" pattern="MM/dd/yyyy HH:mm:ss" />
+                    <h:outputLabel value="#{bundle.CreateCompromisosLabel_actaId}" for="actaId" />
+                    <h:selectOneMenu id="actaId" value="#{compromisosController.selected.actaId}" title="#{bundle.CreateCompromisosTitle_actaId}" required="true" requiredMessage="#{bundle.CreateCompromisosRequiredMessage_actaId}">
+                        <f:selectItems value="#{actasController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateCompromisosLabel_responsable}" for="responsable" />
+                    <h:selectOneMenu id="responsable" value="#{compromisosController.selected.responsable}" title="#{bundle.CreateCompromisosTitle_responsable}" required="true" requiredMessage="#{bundle.CreateCompromisosRequiredMessage_responsable}">
+                        <f:selectItems value="#{personasController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{compromisosController.create}" value="#{bundle.CreateCompromisosSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{compromisosController.prepareList}" value="#{bundle.CreateCompromisosShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateCompromisosIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

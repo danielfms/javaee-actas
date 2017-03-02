@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewCompromisosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewCompromisosLabel_id}"/>
+                    <h:outputText value="#{compromisosController.selected.id}" title="#{bundle.ViewCompromisosTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewCompromisosLabel_actividad}"/>
+                    <h:outputText value="#{compromisosController.selected.actividad}" title="#{bundle.ViewCompromisosTitle_actividad}"/>
+                    <h:outputText value="#{bundle.ViewCompromisosLabel_fechaEntrega}"/>
+                    <h:outputText value="#{compromisosController.selected.fechaEntrega}" title="#{bundle.ViewCompromisosTitle_fechaEntrega}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewCompromisosLabel_actaId}"/>
+                    <h:outputText value="#{compromisosController.selected.actaId}" title="#{bundle.ViewCompromisosTitle_actaId}"/>
+                    <h:outputText value="#{bundle.ViewCompromisosLabel_responsable}"/>
+                    <h:outputText value="#{compromisosController.selected.responsable}" title="#{bundle.ViewCompromisosTitle_responsable}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{compromisosController.destroyAndView}" value="#{bundle.ViewCompromisosDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewCompromisosEditLink}"/>
+                <br />
+                <h:commandLink action="#{compromisosController.prepareCreate}" value="#{bundle.ViewCompromisosCreateLink}" />
+                <br />
+                <h:commandLink action="#{compromisosController.prepareList}" value="#{bundle.ViewCompromisosShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewCompromisosIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
