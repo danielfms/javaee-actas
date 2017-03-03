@@ -3,29 +3,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditPersonasTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditPersonasLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{personasController.selected.id}" title="#{bundle.EditPersonasTitle_id}" required="true" disabled="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.EditPersonasLabel_codigo}" for="codigo" />
-                    <h:inputText id="codigo" value="#{personasController.selected.codigo}" title="#{bundle.EditPersonasTitle_codigo}" required="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_codigo}"/>
-                    <h:outputLabel value="#{bundle.EditPersonasLabel_nombre}" for="nombre" />
-                    <h:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.EditPersonasTitle_nombre}" required="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_nombre}"/>
-                    <h:outputLabel value="#{bundle.EditPersonasLabel_apellido}" for="apellido" />
-                    <h:inputText id="apellido" value="#{personasController.selected.apellido}" title="#{bundle.EditPersonasTitle_apellido}" required="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_apellido}"/>
-                    <h:outputLabel value="#{bundle.EditPersonasLabel_correo}" for="correo" />
-                    <h:inputText id="correo" value="#{personasController.selected.correo}" title="#{bundle.EditPersonasTitle_correo}" required="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_correo}"/>
-                </h:panelGrid>
+                <p:panel header="Editar Persona" style="width: 400px;">
+                    <p:panelGrid columns="2" style="width: 100%;">
+                        <h:outputLabel value="#{bundle.EditPersonasLabel_id}" for="id" />
+                        <h:inputText id="id" value="#{personasController.selected.id}" title="#{bundle.EditPersonasTitle_id}" required="true" disabled="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_id}"/>
+                        <h:outputLabel value="#{bundle.EditPersonasLabel_codigo}" for="codigo" />
+                        <h:inputText id="codigo" value="#{personasController.selected.codigo}" title="#{bundle.EditPersonasTitle_codigo}" required="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_codigo}"/>
+                        <h:outputLabel value="#{bundle.EditPersonasLabel_nombre}" for="nombre" />
+                        <h:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.EditPersonasTitle_nombre}" required="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_nombre}"/>
+                        <h:outputLabel value="#{bundle.EditPersonasLabel_apellido}" for="apellido" />
+                        <h:inputText id="apellido" value="#{personasController.selected.apellido}" title="#{bundle.EditPersonasTitle_apellido}" required="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_apellido}"/>
+                        <h:outputLabel value="#{bundle.EditPersonasLabel_correo}" for="correo" />
+                        <h:inputText id="correo" value="#{personasController.selected.correo}" title="#{bundle.EditPersonasTitle_correo}" required="true" requiredMessage="#{bundle.EditPersonasRequiredMessage_correo}"/>
+                    </p:panelGrid>
+                </p:panel>
                 <h:commandLink action="#{personasController.update}" value="Guardar"/>
                 <br />
                 <h:commandLink action="#{personasController.prepareList}" value="Lista Personas" immediate="true"/>

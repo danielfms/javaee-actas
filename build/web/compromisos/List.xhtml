@@ -7,7 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListCompromisosTitle}"></h:outputText>
+            <h:outputText value="Lista Compromisos"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
@@ -56,11 +56,11 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{compromisosController.prepareView}" value="#{bundle.ListCompromisosViewLink}"/>
+                            <h:commandLink action="#{compromisosController.prepareView}" value="Ver"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{compromisosController.prepareEdit}" value="#{bundle.ListCompromisosEditLink}"/>
+                            <h:commandLink action="#{compromisosController.prepareEdit}" value="Editar"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{compromisosController.destroy}" value="#{bundle.ListCompromisosDestroyLink}"/>
+                            <h:commandLink action="#{compromisosController.destroy}" value="Eliminar"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>

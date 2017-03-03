@@ -6,6 +6,8 @@ import jsf.util.PaginationHelper;
 import jpacontroller.ActasFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -17,6 +19,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import jpa.Compromisos;
 
 @Named("actasController")
 @SessionScoped
@@ -28,7 +31,28 @@ public class ActasController implements Serializable {
     private jpacontroller.ActasFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private Compromisos compromiso = new Compromisos();
 
+    public Compromisos getCompromiso() {
+        return compromiso;
+    }
+
+    public void setCompromiso(Compromisos compromiso) {
+        this.compromiso = compromiso;
+    }
+    
+    public void addCompromiso(){
+         if (current == null) {
+             current = new Actas();
+         }
+        if(current.getCompromisosList() == null){
+            current.setCompromisosList(new ArrayList<Compromisos>());
+        }
+        compromiso.setActaId(current);
+        current.getCompromisosList().add(compromiso);
+        compromiso = new Compromisos();
+    }
+    
     public ActasController() {
     }
 

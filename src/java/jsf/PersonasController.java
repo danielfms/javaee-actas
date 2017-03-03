@@ -80,7 +80,7 @@ public class PersonasController implements Serializable {
     public String prepareCreate() {
         current = new Personas();
         selectedItemIndex = -1;
-        return "List";
+        return "Create";
     }
 
     public String create() {

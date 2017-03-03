@@ -8,18 +8,86 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateActasTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+            <p:panel header="Crear Acta" style="width: 700px;">
+                <p:panelGrid columns="2" style="width: 100%;">
+                    <p:outputLabel value="#{bundle.CreateActasLabel_fecha}" for="fecha" />
+                    <p:calendar id="fecha" value="#{actasController.selected.fecha}" pattern="MM/dd/yyyy HH:mm:ss" />
+                    <h:outputLabel value="#{bundle.CreateActasLabel_lugar}" for="lugar" />
+                    <h:inputText style="width: 82%;" id="lugar" value="#{actasController.selected.lugar}" title="#{bundle.CreateActasTitle_lugar}" required="true" requiredMessage="#{bundle.CreateActasRequiredMessage_lugar}"/>
+                    <h:outputLabel value="#{bundle.CreateActasLabel_descripcion}" for="descripcion" />
+                    <h:inputTextarea  rows="4" cols="30" id="descripcion" value="#{actasController.selected.descripcion}" title="#{bundle.CreateActasTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateActasRequiredMessage_descripcion}"/>
+                    <p:outputLabel value="#{bundle.CreateActasLabel_proximaReunion}" for="proximaReunion" />
+                    <p:calendar id="proximaReunion" value="#{actasController.selected.proximaReunion}" pattern="MM/dd/yyyy HH:mm:ss" />
+                    <h:outputLabel value="#{bundle.CreateActasLabel_proyectoId}" for="proyectoId" />
+                    <h:selectOneMenu id="proyectoId" value="#{actasController.selected.proyectoId}" title="#{bundle.CreateActasTitle_proyectoId}" required="true" requiredMessage="#{bundle.CreateActasRequiredMessage_proyectoId}">
+                        <f:selectItems value="#{proyectosController.itemsAvailableSelectOne}" />
+                    </h:selectOneMenu>
+
+                    <p:outputLabel for="participantes" value="Participantes:" />
+                    <p:selectManyMenu id="participantes" value="#{actasController.selected.personasList}" converter="personaConverter"
+                                      var="t" filter="true" filterMatchMode="contains" showCheckbox="true" >
+                        <f:selectItems value="#{personasController.itemsAvailableSelectMany}" var="persona" itemLabel="#{persona.label}" itemValue="#{persona}" />
+
+                        <p:column>
+                            <h:outputText styleClass="ui-theme ui-theme-#{t.nombre}" />
+                        </p:column>
+
+                        <p:column>
+                            <h:outputText value="#{t.nombre}" />
+                        </p:column>
+                    </p:selectManyMenu>
+                    <h:outputLabel value="" />
+                    <h:commandButton value="Guardar Acta" action="#{actasController.create}"/>
+                </p:panelGrid>
+            </p:panel>
+            <p:panel header="Compromisos asociados al acta" style="width: 700px;">
+                <p:panelGrid columns="2" style="width: 100%;">
+                    <h:outputLabel value="#{bundle.CreateCompromisosLabel_actividad}" for="actividad" />
+                    <h:inputTextarea rows="4" cols="30" id="actividad" value="#{actasController.compromiso.actividad}" title="#{bundle.CreateCompromisosTitle_actividad}"  requiredMessage="#{bundle.CreateCompromisosRequiredMessage_actividad}"/>
+
+                    <p:outputLabel value="#{bundle.CreateCompromisosLabel_fechaEntrega}" for="fechaEntrega"  />
+                    <p:calendar id="fechaEntrega" value="#{actasController.compromiso.fechaEntrega}" pattern="MM/dd/yyyy HH:mm:ss" />
+
+                    <h:outputLabel value="#{bundle.CreateCompromisosLabel_responsable}" for="responsable" />
+                    <h:selectOneMenu id="responsable" value="#{actasController.compromiso.responsable}" title="#{bundle.CreateCompromisosTitle_responsable}" requiredMessage="#{bundle.CreateCompromisosRequiredMessage_responsable}">
+                        <f:selectItems value="#{personasController.itemsAvailableSelectMany}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputLabel value="" />
+                    <h:commandButton value="Agregar compromiso" action="#{actasController.addCompromiso}"/>
+
+
+                    <p:spacer height="60px;"/>
+                    <p:column colspan="2">
+                        <p:dataTable value="#{actasController.selected.compromisosList}" var="c"  widgetVar="50" style="width: 500px;">
+                            <f:facet name="header">  
+                                Lista compromisos 
+                            </f:facet>
+
+                            <p:column headerText="Fecha entrega">
+                                <h:outputText value="#{c.fechaEntrega}" />
+                            </p:column>
+
+                            <p:column headerText="Actividad">
+                                <h:outputText value="#{c.actividad}" />
+                            </p:column>
+
+                            <p:column headerText="Responsable">
+                                <h:outputText value="#{c.responsable.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:column>
+                </p:panelGrid>
+            </p:panel>
+            <!--
+            <h:form>
                 <h:panelGrid columns="2">
-                    <!--
-                    <h:outputLabel value="#{bundle.CreateActasLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{actasController.selected.id}" title="#{bundle.CreateActasTitle_id}" required="true" requiredMessage="#{bundle.CreateActasRequiredMessage_id}"/>
-                    -->
                     <p:outputLabel value="#{bundle.CreateActasLabel_fecha}" for="fecha" />
                     <p:calendar id="fecha" value="#{actasController.selected.fecha}" pattern="MM/dd/yyyy HH:mm:ss" />
                     <h:outputLabel value="#{bundle.CreateActasLabel_lugar}" for="lugar" />
@@ -37,7 +105,7 @@
                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, value">
                     <p:outputLabel for="advanced" value="Advanced:" />
                     <p:selectManyMenu id="advanced" value="#{actasController.selected.personasList}" converter="personaConverter"
-                                      var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
+                                      var="t" filter="true" filterMatchMode="contains" showCheckbox="true" >
                         <f:selectItems value="#{personasController.itemsAvailableSelectMany}" var="persona" itemLabel="#{persona.label}" itemValue="#{persona}" />
 
                         <p:column>
@@ -49,21 +117,53 @@
                         </p:column>
                     </p:selectManyMenu>
                 </h:panelGrid>
-                <!--
-                <p:dataList value="#{personasController.itemsAvailableSelectMany}" var="per" type="ordered">
-                    <f:facet name="header">
-                        Basic
-                    </f:facet>
-                    #{per.label}, #{per.label}
-                </p:dataList>
-                -->
-                <h:commandLink action="#{actasController.create}" value="#{bundle.CreateActasSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{actasController.prepareList}" value="#{bundle.CreateActasShowAllLink}" immediate="true"/>
+                <br />
+                <h:outputLabel value="CREAR COMPROMISO NUEVO" style="font-size: bold;"/>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateCompromisosLabel_actividad}" for="actividad" />
+                    <h:inputTextarea rows="4" cols="30" id="actividad" value="#{actasController.compromiso.actividad}" title="#{bundle.CreateCompromisosTitle_actividad}"  requiredMessage="#{bundle.CreateCompromisosRequiredMessage_actividad}"/>
+
+                    <p:outputLabel value="#{bundle.CreateCompromisosLabel_fechaEntrega}" for="fechaEntrega"  />
+                    <p:calendar id="fechaEntrega" value="#{actasController.compromiso.fechaEntrega}" pattern="MM/dd/yyyy HH:mm:ss" />
+
+                    <h:outputLabel value="#{bundle.CreateCompromisosLabel_responsable}" for="responsable" />
+                    <h:selectOneMenu id="responsable" value="#{actasController.compromiso.responsable}" title="#{bundle.CreateCompromisosTitle_responsable}" requiredMessage="#{bundle.CreateCompromisosRequiredMessage_responsable}">
+                        <f:selectItems value="#{actasController.selected.compromisosList}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.CreateActasIndexLink}"/>
+                <br />
+                <h:commandLink action="#{actasController.addCompromiso}" value="Guardar compromiso" />
+                <br />
+                <h:commandLink action="#{actasController.create}" value="Guardar Acta" />
+                <br />
+                <br />
+                <br />
+
+                <p:dataTable var="c" value="#{actasController.selected.compromisosList}" style="width: 800px;">
+                    <p:column headerText="Fecha entrega">
+                        <h:outputText value="#{c.fechaEntrega}" />
+                    </p:column>
+
+                    <p:column headerText="Actividad">
+                        <h:outputText value="#{c.actividad}" />
+                    </p:column>
+
+                    <p:column headerText="Responsable">
+                        <h:outputText value="#{c.responsable.nombre}" />
+                    </p:column>
+                </p:dataTable>
+
+
+                
+
+            </h:form>
+            -->
+            <h:commandLink action="#{actasController.prepareList}" value="Lista Actas" immediate="true"/>
             </h:form>
         </ui:define>
     </ui:composition>

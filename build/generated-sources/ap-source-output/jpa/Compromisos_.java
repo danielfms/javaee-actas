@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import jpa.Actas;
 import jpa.Personas;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-03-01T21:32:56")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-03-02T19:43:55")
 @StaticMetamodel(Compromisos.class)
 public class Compromisos_ { 
 

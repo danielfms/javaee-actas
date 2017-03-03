@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,33 +15,27 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditCompromisosLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{compromisosController.selected.id}" title="#{bundle.EditCompromisosTitle_id}" required="true" requiredMessage="#{bundle.EditCompromisosRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.EditCompromisosLabel_actividad}" for="actividad" />
-                    <h:inputTextarea rows="4" cols="30" id="actividad" value="#{compromisosController.selected.actividad}" title="#{bundle.EditCompromisosTitle_actividad}" required="true" requiredMessage="#{bundle.EditCompromisosRequiredMessage_actividad}"/>
-                    <h:outputLabel value="#{bundle.EditCompromisosLabel_fechaEntrega}" for="fechaEntrega" />
-                    <h:inputText id="fechaEntrega" value="#{compromisosController.selected.fechaEntrega}" title="#{bundle.EditCompromisosTitle_fechaEntrega}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditCompromisosLabel_actaId}" for="actaId" />
-                    <h:selectOneMenu id="actaId" value="#{compromisosController.selected.actaId}" title="#{bundle.EditCompromisosTitle_actaId}" required="true" requiredMessage="#{bundle.EditCompromisosRequiredMessage_actaId}">
-                        <f:selectItems value="#{actasController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditCompromisosLabel_responsable}" for="responsable" />
-                    <h:selectOneMenu id="responsable" value="#{compromisosController.selected.responsable}" title="#{bundle.EditCompromisosTitle_responsable}" required="true" requiredMessage="#{bundle.EditCompromisosRequiredMessage_responsable}">
-                        <f:selectItems value="#{personasController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{compromisosController.update}" value="#{bundle.EditCompromisosSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditCompromisosViewLink}"/>
-                <br />
-                <h:commandLink action="#{compromisosController.prepareList}" value="#{bundle.EditCompromisosShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditCompromisosIndexLink}" />
+                <p:panel header="Compromiso ##{compromisosController.selected.id}" style="width: 500px;">
+                    <p:panelGrid columns="2" style="width: 100%;">
+                        <h:outputLabel value="#{bundle.EditCompromisosLabel_id}" for="id" />
+                        <h:inputText id="id" value="#{compromisosController.selected.id}" title="#{bundle.EditCompromisosTitle_id}" required="true" requiredMessage="#{bundle.EditCompromisosRequiredMessage_id}"/>
+                        <h:outputLabel value="#{bundle.EditCompromisosLabel_actividad}" for="actividad" />
+                        <h:inputTextarea rows="4" cols="30" id="actividad" value="#{compromisosController.selected.actividad}" title="#{bundle.EditCompromisosTitle_actividad}" required="true" requiredMessage="#{bundle.EditCompromisosRequiredMessage_actividad}"/>
+                        <h:outputLabel value="#{bundle.EditCompromisosLabel_fechaEntrega}" for="fechaEntrega" />
+                        <h:inputText id="fechaEntrega" value="#{compromisosController.selected.fechaEntrega}" title="#{bundle.EditCompromisosTitle_fechaEntrega}" >
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:inputText>
+                        <h:outputLabel value="#{bundle.EditCompromisosLabel_actaId}" for="actaId" />
+                        <h:selectOneMenu id="actaId" value="#{compromisosController.selected.actaId}" title="#{bundle.EditCompromisosTitle_actaId}" required="true" requiredMessage="#{bundle.EditCompromisosRequiredMessage_actaId}">
+                            <f:selectItems value="#{actasController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{bundle.EditCompromisosLabel_responsable}" for="responsable" />
+                        <h:selectOneMenu id="responsable" value="#{compromisosController.selected.responsable}" title="#{bundle.EditCompromisosTitle_responsable}" required="true" requiredMessage="#{bundle.EditCompromisosRequiredMessage_responsable}">
+                            <f:selectItems value="#{personasController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                    </p:panelGrid>
+                </p:panel>
+                <h:commandLink action="#{compromisosController.update}" value="Guardar"/>
             </h:form>
         </ui:define>
     </ui:composition>
