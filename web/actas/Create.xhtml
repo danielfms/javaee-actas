@@ -49,13 +49,13 @@
             <p:panel header="Compromisos asociados al acta" style="width: 700px;">
                 <p:panelGrid columns="2" style="width: 100%;">
                     <h:outputLabel value="#{bundle.CreateCompromisosLabel_actividad}" for="actividad" />
-                    <h:inputTextarea rows="4" cols="30" id="actividad" value="#{actasController.compromiso.actividad}" title="#{bundle.CreateCompromisosTitle_actividad}"  requiredMessage="#{bundle.CreateCompromisosRequiredMessage_actividad}"/>
+                    <h:inputTextarea rows="4" cols="30" id="actividad" value="#{actasController.compromiso.actividad}" title="#{bundle.CreateCompromisosTitle_actividad}" />
 
                     <p:outputLabel value="#{bundle.CreateCompromisosLabel_fechaEntrega}" for="fechaEntrega"  />
                     <p:calendar id="fechaEntrega" value="#{actasController.compromiso.fechaEntrega}" pattern="MM/dd/yyyy HH:mm:ss" />
 
                     <h:outputLabel value="#{bundle.CreateCompromisosLabel_responsable}" for="responsable" />
-                    <h:selectOneMenu id="responsable" value="#{actasController.compromiso.responsable}" title="#{bundle.CreateCompromisosTitle_responsable}" requiredMessage="#{bundle.CreateCompromisosRequiredMessage_responsable}">
+                    <h:selectOneMenu id="responsable" value="#{actasController.compromiso.responsable}" title="#{bundle.CreateCompromisosTitle_responsable}" >
                         <f:selectItems value="#{personasController.itemsAvailableSelectMany}"/>
                     </h:selectOneMenu>
 

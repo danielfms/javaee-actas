@@ -3,39 +3,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewProyectosTitle}"></h:outputText>
+            
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewProyectosLabel_id}"/>
-                    <h:outputText value="#{proyectosController.selected.id}" title="#{bundle.ViewProyectosTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewProyectosLabel_codigo}"/>
-                    <h:outputText value="#{proyectosController.selected.codigo}" title="#{bundle.ViewProyectosTitle_codigo}"/>
-                    <h:outputText value="#{bundle.ViewProyectosLabel_nombre}"/>
-                    <h:outputText value="#{proyectosController.selected.nombre}" title="#{bundle.ViewProyectosTitle_nombre}"/>
-                    <h:outputText value="#{bundle.ViewProyectosLabel_descripcion}"/>
-                    <h:outputText value="#{proyectosController.selected.descripcion}" title="#{bundle.ViewProyectosTitle_descripcion}"/>
-                </h:panelGrid>
+                <p:panel header="Proyecto ##{proyectosController.selected.id}" style="width: 400px;">
+                    <p:panelGrid columns="2" style="width: 100%;">
+                        <h:outputText value="#{bundle.ViewProyectosLabel_id}"/>
+                        <h:outputText value="#{proyectosController.selected.id}" title="#{bundle.ViewProyectosTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewProyectosLabel_codigo}"/>
+                        <h:outputText value="#{proyectosController.selected.codigo}" title="#{bundle.ViewProyectosTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewProyectosLabel_nombre}"/>
+                        <h:outputText value="#{proyectosController.selected.nombre}" title="#{bundle.ViewProyectosTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewProyectosLabel_descripcion}"/>
+                        <h:outputText value="#{proyectosController.selected.descripcion}" title="#{bundle.ViewProyectosTitle_descripcion}"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" style="width: 370px;">
+                <p:dataList value="#{proyectosController.selected.actasList}" var="c">
+                                <f:facet name="header">
+                                    Actas
+                                </f:facet>
+                             #{c} | #{c.descripcion}
+                            </p:dataList>
+                        </p:panelGrid>
+                    
+                    <p:panelGrid columns="2" style="width: 370px;">
+                        <p:dataList value="#{proyectosController.personasList}" var="c">
+                                <f:facet name="header">
+                                    Personas
+                                </f:facet>
+                             #{c.id} | #{c.nombre}
+                            </p:dataList>
+                        </p:panelGrid>
+                </p:panel>
+                
                 <br />
-                <h:commandLink action="#{proyectosController.destroyAndView}" value="#{bundle.ViewProyectosDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewProyectosEditLink}"/>
-                <br />
-                <h:commandLink action="#{proyectosController.prepareCreate}" value="#{bundle.ViewProyectosCreateLink}" />
-                <br />
-                <h:commandLink action="#{proyectosController.prepareList}" value="#{bundle.ViewProyectosShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewProyectosIndexLink}"/>
+
+                <h:commandLink action="#{proyectosController.prepareList}" value="Lista Proyectos"/>
+                
 
             </h:form>
         </ui:define>

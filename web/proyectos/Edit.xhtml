@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,7 +15,8 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
+                <p:panel header="Proyecto ##{proyectosController.selected.id}" style="width: 400px;">
+                    <p:panelGrid columns="2" style="width: 100%;">
                     <h:outputLabel value="#{bundle.EditProyectosLabel_id}" for="id" />
                     <h:inputText id="id" value="#{proyectosController.selected.id}" title="#{bundle.EditProyectosTitle_id}" required="true" disabled="true" requiredMessage="#{bundle.EditProyectosRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.EditProyectosLabel_codigo}" for="codigo" />
@@ -23,16 +25,14 @@
                     <h:inputText id="nombre" value="#{proyectosController.selected.nombre}" title="#{bundle.EditProyectosTitle_nombre}" required="true" requiredMessage="#{bundle.EditProyectosRequiredMessage_nombre}"/>
                     <h:outputLabel value="#{bundle.EditProyectosLabel_descripcion}" for="descripcion" />
                     <h:inputTextarea rows="4" cols="30" id="descripcion" value="#{proyectosController.selected.descripcion}" title="#{bundle.EditProyectosTitle_descripcion}" />
-                </h:panelGrid>
-                <h:commandLink action="#{proyectosController.update}" value="#{bundle.EditProyectosSaveLink}"/>
+                </p:panelGrid>
+                </p:panel>
+                <h:commandLink action="#{proyectosController.update}" value="Guardar Proyecto"/>
                 <br />
                 <br />
-                <h:link outcome="View" value="#{bundle.EditProyectosViewLink}"/>
-                <br />
-                <h:commandLink action="#{proyectosController.prepareList}" value="#{bundle.EditProyectosShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditProyectosIndexLink}" />
+               
+                <h:commandLink action="#{proyectosController.prepareList}" value="Lista Proyectos" immediate="true"/>
+
             </h:form>
         </ui:define>
     </ui:composition>

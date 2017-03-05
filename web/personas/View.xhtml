@@ -8,14 +8,15 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewPersonasTitle}"></h:outputText>
+            
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
+                <p:panel header="Persona ##{personasController.selected.id}" style="width: 400px;">
+                    <p:panelGrid columns="2" style="width: 100%;">
                     <h:outputText value="#{bundle.ViewPersonasLabel_id}"/>
                     <h:outputText value="#{personasController.selected.id}" title="#{bundle.ViewPersonasTitle_id}"/>
                     <h:outputText value="#{bundle.ViewPersonasLabel_codigo}"/>
@@ -26,16 +27,25 @@
                     <h:outputText value="#{personasController.selected.apellido}" title="#{bundle.ViewPersonasTitle_apellido}"/>
                     <h:outputText value="#{bundle.ViewPersonasLabel_correo}"/>
                     <h:outputText value="#{personasController.selected.correo}" title="#{bundle.ViewPersonasTitle_correo}"/>
- 
-                </h:panelGrid>
-                <h:panelGrid>
+                </p:panelGrid>
+                </p:panel>
+               
+                 <p:panelGrid columns="2" style="width: 400px;">
                 <p:dataList value="#{personasController.selected.actasList}" var="c">
                                 <f:facet name="header">
                                     Actas
                                 </f:facet>
-                                ##{c} | Proyecto: #{c.proyectoId.nombre}
+                             #{c} | #{c.descripcion}
                             </p:dataList>
-                </h:panelGrid>
+                     
+                     <p:dataList value="#{personasController.selected.compromisosList}" var="c">
+                                <f:facet name="header">
+                                    Compromisos
+                                </f:facet>
+                         #{c} | #{c.actividad}
+                            </p:dataList>
+                </p:panelGrid>
+                
 
 
                 <!--

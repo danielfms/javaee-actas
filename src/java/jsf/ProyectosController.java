@@ -6,7 +6,12 @@ import jsf.util.PaginationHelper;
 import jpacontroller.ProyectosFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -17,6 +22,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import jpa.Personas;
 
 @Named("proyectosController")
 @SessionScoped
@@ -28,6 +34,7 @@ public class ProyectosController implements Serializable {
     private jpacontroller.ProyectosFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private List<Personas> personasList;
 
     public ProyectosController() {
     }
@@ -43,7 +50,15 @@ public class ProyectosController implements Serializable {
     private ProyectosFacade getFacade() {
         return ejbFacade;
     }
-
+    
+   public List<Personas> getPersonasList(){
+        Set<Personas> sp = new HashSet<Personas>();
+        for(int i=0; i< current.getActasList().size(); i++){
+            sp.addAll(current.getActasList().get(i).getPersonasList());
+        }
+        personasList = new ArrayList<Personas>(sp);
+        return personasList;
+    }
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {

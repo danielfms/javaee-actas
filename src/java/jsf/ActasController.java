@@ -50,7 +50,7 @@ public class ActasController implements Serializable {
         }
         compromiso.setActaId(current);
         current.getCompromisosList().add(compromiso);
-        compromiso = new Compromisos();
+        //compromiso = new Compromisos();
     }
     
     public ActasController() {
